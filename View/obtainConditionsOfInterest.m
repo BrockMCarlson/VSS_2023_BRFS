@@ -13,8 +13,7 @@ laminarBoundaryCalculations = importDepths(workbookFile);
 
 
 
-SDF_avg     = cell(4,8);
-RESP_avg    = cell(4,8);
+
 count_IDX = 0;
 SupraCount =  0;  
 GranularCount = 0;
@@ -94,28 +93,28 @@ for i = 1:size(allData,1) % load in data for one session
     % Note - I called the orientations "PO and NPO" at the time of
     % recording, but I want to be agnostic to this designation and let the
     % MUA tell me what its preference is. The brain from inside out!
-    tiltA_RightEye_monocConditions_13  = [5 11 13 19];
-    tiltA_LeftEye_monocConditions_16   = [8 10 16 18];
-    tiltB_RightEye_monocConditions_15  = [7 9  15 17];
-    tiltB_LeftEye_monocConditions_14   = [6 12 14 20];
+    tiltA_RightEye_monocConditions_11   = [5 11 13 19];
+    tiltA_LeftEye_monocConditions_10    = [8 10 16 18];
+    tiltB_RightEye_monocConditions_9    = [7 9 15 17];
+    tiltB_LeftEye_monocConditions_12    = [6 12 14 20];
     clear trls
     trls.monoc_tiltA_RE = ...
-        (ismember(STIM.bmcBRFSparamNum,tiltA_RightEye_monocConditions_13) &...
+        (ismember(STIM.bmcBRFSparamNum,tiltA_RightEye_monocConditions_11) &...
         STIM.first800 == true);
     trlNum.monoc_tiltA_RE = sum(trls.monoc_tiltA_RE );
 
     trls.monoc_tiltA_LE = ...
-        (ismember(STIM.bmcBRFSparamNum,tiltA_LeftEye_monocConditions_16) &...
+        (ismember(STIM.bmcBRFSparamNum,tiltA_LeftEye_monocConditions_10) &...
         STIM.first800 == true);
     trlNum.monoc_tiltA_LE = sum(trls.monoc_tiltA_LE );
 
     trls.monoc_tiltB_RE = ...
-        (ismember(STIM.bmcBRFSparamNum,tiltB_RightEye_monocConditions_15) &...
+        (ismember(STIM.bmcBRFSparamNum,tiltB_RightEye_monocConditions_9) &...
         STIM.first800 == true);
     trlNum.monoc_tiltB_RE = sum(trls.monoc_tiltB_RE );
 
     trls.monoc_tiltB_LE = ...
-        (ismember(STIM.bmcBRFSparamNum,tiltB_LeftEye_monocConditions_14) &...
+        (ismember(STIM.bmcBRFSparamNum,tiltB_LeftEye_monocConditions_12) &...
         STIM.first800 == true);
     trlNum.monoc_tiltB_LE = sum(trls.monoc_tiltB_LE );
 
@@ -154,32 +153,35 @@ for i = 1:size(allData,1) % load in data for one session
         end
 
         if maxPos == 1 
-            codeForCondAB(j,1) = 13; 
+            prefOriDomEyeFlash(j,1) = 12; % PO RightEye flash. RE is prefered
+            sameStimDiffHistory(j,1) = 11;
         elseif maxPos == 2
-            codeForCondAB(j,1) = 16; 
+            prefOriDomEyeFlash(j,1) = 9; % PO LeftEye flash. LE is prefered
+            sameStimDiffHistory(j,1) = 10;
         elseif maxPos == 3
-            codeForCondAB(j,1) = 15; 
+            prefOriDomEyeFlash(j,1) = 10; %  NPO RightEye flash. RE is prefered
+            sameStimDiffHistory(j,1) = 9;
         elseif maxPos == 4
-            codeForCondAB(j,1) = 14;
+            prefOriDomEyeFlash(j,1) = 11; % NPO LeftEye flash. LE is prefered
+            sameStimDiffHistory(j,1) = 12;
         end
-        if minPos == 1 
-            codeForCondCD(j,1) = 13; 
-        elseif minPos == 2
-            codeForCondCD(j,1) = 16; 
-        elseif minPos == 3
-            codeForCondCD(j,1) = 15; 
-        elseif minPos == 4
-            codeForCondCD(j,1) = 14;
-        end
+% %         if minPos == 1 
+% %             nullOriNonDomEyeFlash(j,1) = 12; 
+% %         elseif minPos == 2
+% %             nullOriNonDomEyeFlash(j,1) = 9; 
+% %         elseif minPos == 3
+% %             nullOriNonDomEyeFlash(j,1) = 10; 
+% %         elseif minPos == 4
+% %             nullOriNonDomEyeFlash(j,1) = 11;
+% %         end
 
     end
    
 
-    % 13    'Monoc Alt Congruent Adapted. C PO RightEye adapting - PO LeftEye alternat monoc presentation',... 
-    % 14    'Monoc Alt Congruent Adapted. C NPO LeftEye adapting - NPO RightEye alternat monoc presentation',... 
-    % 15    'Monoc Alt Congruent Adapted. C NPO RightEye  adapting - NPO LeftEye alternat monoc presentation',... 
-    % 16    'Monoc Alt Congruent Adapted. C PO LeftEye adapting - PO RightEye alternat monoc presentation',... 
-
+     % 9     'BRFS IC Adapted Flash. NPO RightEye adapting - PO LeftEye flashed',... 
+    % 10    'BRFS IC Adapted Flash. PO LeftEye adapting - NPO RightEye flashed',... 
+    % 11    'BRFS IC Adapted Flash. PO RightEye adapting - NPO LeftEye flashed',... 
+    % 12    'BRFS IC Adapted Flash. NPO LeftEye adapting - PO RightEye flashed',... 
     
 
 
@@ -191,28 +193,28 @@ for i = 1:size(allData,1) % load in data for one session
 
     %ok. time to figure out what I want on my poster.
     % We are looking at 4 conditions. ALL are prefered ori:
-    CondLabel{1} = 'A. Prefered eye monocular';
-    CondLabel{2} = 'B. Null eye adapted';
-    CondLabel{3} = 'C. Null eye monocular';
-    CondLabel{4} = 'D. Prefered eye adapted';
+    CondLabel{1} = 'A. BigFlash: adapter = NPO NDE adapting';
+    CondLabel{2} = 'A. BigFlash: flash = PO DE flash';
+    CondLabel{3} = 'B. NonDomFlash: adapter = PO DE adapting'; 
+    CondLabel{4} = 'B. NonDomFlash: flash = NPO NDE flash'; 
 
 
     for k = 1:size(blSubSDF,1)
         clear trlsLogical
-        trlsLogical(:,1) =... %A_prefEyeMonoc 
-            STIM.bmcBRFSparamNum == codeForCondAB(j,1) &...
+        trlsLogical(:,1) =... %A_adapter
+            STIM.bmcBRFSparamNum == prefOriDomEyeFlash(j,1) &...
             STIM.first800 == true &...
             STIM.fullTrial == true;
-        trlsLogical(:,2) =... %.B_nullEyeAdapt = ...
-            STIM.bmcBRFSparamNum == codeForCondAB(j,1) &...
+        trlsLogical(:,2) =... %A_flash
+            STIM.bmcBRFSparamNum == prefOriDomEyeFlash(j,1) &...
             STIM.first800 == false &...
             STIM.fullTrial == true;
-        trlsLogical(:,3) =... %.C_nullEyeMonoc = ...
-            STIM.bmcBRFSparamNum == codeForCondCD(j,1) &...
+        trlsLogical(:,3) =... %B_adapter
+            STIM.bmcBRFSparamNum == sameStimDiffHistory(j,1) &...
             STIM.first800 == true &...
             STIM.fullTrial == true;
-        trlsLogical(:,4) =... %.D_prefEyeAdapt =...
-            STIM.bmcBRFSparamNum == codeForCondCD(j,1) &...
+        trlsLogical(:,4) =... %B_flash
+            STIM.bmcBRFSparamNum == sameStimDiffHistory(j,1) &...
             STIM.first800 == false &...
             STIM.fullTrial == true;
 

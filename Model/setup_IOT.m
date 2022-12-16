@@ -11,10 +11,10 @@ global RIGDIR CODEDIR OUTDIR_FD OUTDIR_PLOT
 
     switch user
         case {'BrockWork'}
-            RIGDIR      = 'E:\bmcBRFSsessions\';
-            CODEDIR     = 'C:\Users\Brock\Documents\MATLAB\GitHub\VSS2022-IOT\';
-            OUTDIR_FD   = 'C:\Users\Brock\Box\SfN 2022\formattedData_BOX\';
-            OUTDIR_PLOT = 'C:\Users\Brock\Box\SfN 2022\plotData - LenovoOutputs\';
+            RIGDIR      = 'D:\bmcBRFS datasets\';
+            CODEDIR     = 'C:\Users\Brock\Documents\MATLAB\GitHub\VSS_2023_BRFS\';
+            OUTDIR_FD   = 'D:\formattedDataOutpus\';
+            OUTDIR_PLOT = 'D:\plotData\';
 
         case {'BrockHome'}
             RIGDIR      = 'S:\bmcBRFS dataset\';

@@ -65,12 +65,12 @@ for unitOfInterest = 1:length(IDX.allV1)
         continue
     end
     count = count + 1;
-    avgForUnit_condA        = nanmean(IDX.allV1(unitOfInterest).condSelect_blSubSDF{1},2);
-    avgForUnit_condB        = nanmean(IDX.allV1(unitOfInterest).condSelect_blSubSDF{2},2);
-    avgForUnit_condC        = nanmean(IDX.allV1(unitOfInterest).condSelect_blSubSDF{3},2);
-    avgForUnit_condD        = nanmean(IDX.allV1(unitOfInterest).condSelect_blSubSDF{4},2);
-    subtract_DE{count,:}       = avgForUnit_condD - avgForUnit_condA;
-    subtract_NDE{count,:}      = avgForUnit_condB - avgForUnit_condC; 
+    avgForUnit_cond1        = nanmean(IDX.allV1(unitOfInterest).condSelect_blSubSDF{1},2);
+    avgForUnit_cond2        = nanmean(IDX.allV1(unitOfInterest).condSelect_blSubSDF{2},2);
+    avgForUnit_cond3        = nanmean(IDX.allV1(unitOfInterest).condSelect_blSubSDF{3},2);
+    avgForUnit_cond4        = nanmean(IDX.allV1(unitOfInterest).condSelect_blSubSDF{4},2);
+    subtract_DE{count,:}       = avgForUnit_cond3 - avgForUnit_cond1;
+    subtract_NDE{count,:}      = avgForUnit_cond4 - avgForUnit_cond2; 
     % you can smooth these data here if needed.
     depthLabel_3{count,:}     = IDX.allV1(unitOfInterest).depthLabel;
 end
